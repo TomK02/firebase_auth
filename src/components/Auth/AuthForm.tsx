@@ -19,7 +19,7 @@ type ValidCredentials = {
 };
 
 interface AuthFormProps {
-  isLogin: boolean;
+  isLogin?: boolean;
   onSubmit: (credentials: AuthForm) => void;
   credentialsInvalid: ValidCredentials;
 }

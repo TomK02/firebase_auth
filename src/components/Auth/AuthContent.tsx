@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
 import { GlobalTheme } from '../../themes/constants';
+import { NavigationTypeProp } from '../../types/navigation';
 
 type Credentials = {
   email: string;
@@ -18,11 +20,13 @@ type AuthenticateData = {
 };
 
 interface AuthContentProps {
-  isLogin: boolean;
+  isLogin?: boolean;
   onAuthenticate: (credentials: AuthenticateData) => void;
 }
 
 function AuthContent({ isLogin, onAuthenticate }: AuthContentProps) {
+  const navigation = useNavigation<NavigationTypeProp<'Login' | 'Signup'>>();
+
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
@@ -31,7 +35,11 @@ function AuthContent({ isLogin, onAuthenticate }: AuthContentProps) {
   });
 
   function switchAuthModeHandler() {
-    // Todo
+    if (isLogin) {
+      navigation.replace('Signup');
+    } else {
+      navigation.replace('Login');
+    }
   }
 
   function submitHandler(credentials: Credentials) {
@@ -70,10 +78,9 @@ function AuthContent({ isLogin, onAuthenticate }: AuthContentProps) {
         credentialsInvalid={credentialsInvalid}
       />
       <View style={styles.buttons}>
-        <FlatButton
-          onPress={switchAuthModeHandler}
-          title={isLogin ? 'Create a new user' : 'Log in instead'}
-        />
+        <FlatButton onPress={switchAuthModeHandler}>
+          {isLogin ? 'Create a new user' : 'Log in instead'}
+        </FlatButton>
       </View>
     </View>
   );

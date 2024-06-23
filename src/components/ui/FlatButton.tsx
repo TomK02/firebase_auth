@@ -1,15 +1,11 @@
 import React, { type PropsWithChildren } from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  type ButtonProps,
-} from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { GlobalTheme } from '../../themes/constants';
 
-interface FlatButtonPropsT extends ButtonProps, PropsWithChildren {}
+interface FlatButtonPropsT extends PropsWithChildren {
+  onPress: () => void;
+}
 
 function FlatButton({ children, onPress }: FlatButtonPropsT) {
   return (

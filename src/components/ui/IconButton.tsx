@@ -1,11 +1,12 @@
 import React from 'react';
-import { ButtonProps, Pressable, StyleSheet } from 'react-native';
+import { Pressable, PressableProps, StyleSheet } from 'react-native';
 import FontAwesomeIcons from './FontAwesomeIcons';
 
-interface IconButtonProps extends ButtonProps {
+interface IconButtonProps {
   icon: string;
   size: number;
   color?: string;
+  onPress: PressableProps['onPress'];
 }
 
 function IconButton({ icon, color, size, onPress }: IconButtonProps) {
